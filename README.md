@@ -1,66 +1,145 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Digital Complaint Manager(Admin Support)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A robust and feature-rich complaint management system built with the Laravel framework. This application provides a platform for users (such as students and hospital patients) to submit and track complaints, and a powerful administrative dashboard for staff to manage, update, and analyze complaint data.
 
-## About Laravel
+## Key Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* **Dual Authentication System**: Separate, secure login portals for regular users and administrators using Laravel's authentication guards.
+* **Role-Based Access Control**:
+    * **User Panel**: Authenticated users can submit detailed complaints, view their complaint history, and receive status updates.
+    * **Admin Panel**: A comprehensive dashboard for administrators to oversee the entire system.
+* **Advanced Admin Dashboard**:
+    * View and manage all complaints with filtering by college, date, and status.
+    * Search functionality for complaints, colleges, and users.
+    * At-a-glance statistics for total, pending, in-progress, and resolved complaints.
+* **Complaint Management**:
+    * Admins can update a complaint's status (Pending, In Progress, Resolved) and add internal notes.
+    * Users are notified of status updates in real-time.
+* **In-Depth Reporting & Analytics**:
+    * A dedicated reports page with data visualizations.
+    * Charts for:
+        * Complaints by College.
+        * Overall Status Breakdown.
+        * Complaints Over Time.
+        * Complaints by User Role and Sub-Category.
+* **Data Export**:
+    * Export aggregated complaint reports as a PDF or CSV file.
+    * Download a PDF summary for any individual complaint.
+* **User & College Management**:
+    * View lists of all users and colleges.
+    * Filter users who have submitted multiple complaints.
+    * View all complaints associated with a specific user or college.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Technology Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+This project is built using modern web technologies and relies on the following stack:
 
-## Learning Laravel
+* **Backend**: PHP ^8.2, Laravel ^11.31
+* **Database**: MySQL
+* **Real-time Events**: Laravel Reverb / Pusher for WebSocket notifications
+* **PDF Generation**: `barryvdh/laravel-dompdf`
+* **Frontend**: Vite, Blade Templates
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Prerequisites
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Before you begin, ensure you have the following installed on your local machine:
+* PHP >= 8.2
+* Composer
+* Node.js & NPM
+* A database server (e.g., MySQL)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Installation Guide
 
-## Laravel Sponsors
+Follow these steps to get your development environment set up:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repository-url>
+    cd <repository-directory>
+    ```
 
-### Premium Partners
+2.  **Install PHP dependencies:**
+    ```bash
+    composer install
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3.  **Install JavaScript dependencies:**
+    ```bash
+    npm install
+    ```
 
-## Contributing
+4.  **Set up your environment file:**
+    * Copy the example environment file. The `post-root-package-install` script in `composer.json` may have already done this for you.
+    ```bash
+    cp .env.example .env
+    ```
+    * Generate a new application key:
+    ```bash
+    php artisan key:generate
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5.  **Configure your `.env` file:**
+    * Open the `.env` file and update the `DB_*` variables with your database credentials.
+    ```dotenv
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=adminpanel
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+    * Configure your `APP_URL` to match your local development URL (e.g., `http://127.0.0.1:8000`).
 
-## Code of Conduct
+6.  **Run database migrations:**
+    * This will create all the necessary tables for the application, including for sessions and queues.
+    ```bash
+    php artisan migrate
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7.  **(Optional) Seed the database:**
+    * If you have database seeders, run them to populate your database with initial data.
+    ```bash
+    php artisan db:seed
+    ```
 
-## Security Vulnerabilities
+## Running the Application
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1.  **Compile frontend assets:**
+    * This command will compile assets and watch for changes.
+    ```bash
+    npm run dev
+    ```
+
+2.  **Start the development server:**
+    * The application will be available at `http://127.0.0.1:8000` by default.
+    ```bash
+    php artisan serve
+    ```
+
+3.  **Run the queue worker:**
+    * The queue worker is essential for processing background jobs like sending notifications.
+    ```bash
+    php artisan queue:work
+    ```
+
+4.  **Start the Reverb server (for real-time notifications):**
+    ```bash
+    php artisan reverb:start
+    ```
+
+## Usage
+
+The application has two primary points of entry:
+
+* **User Access**:
+    * Login: `http://localhost:8000/login`
+    * Register: `http://localhost:8000/register`
+* **Admin Access**:
+    * Login: `http://localhost:8000/admin/login`
+    * Dashboard: `http://localhost:8000/admin/dashboard`
+
+You will need to register a user to test the user-facing features and manually create an admin user in the database (`users` table, set `usertype` to 'admin') to access the admin panel.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
