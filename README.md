@@ -30,7 +30,7 @@ A robust and feature-rich complaint management system built with the Laravel fra
     * Filter users who have submitted multiple complaints.
     * View all complaints associated with a specific user or college.
   
-![App Demo](https://youtu.be/whiTsOvlxk8)
+![App Demo]((https://youtu.be/whiTsOvlxk8))
 ## Technology Stack
 
 This project is built using modern web technologies and relies on the following stack:
